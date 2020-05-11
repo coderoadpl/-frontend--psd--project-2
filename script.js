@@ -17,8 +17,37 @@ const initListApp = (function () {
 
     }
 
+    const removeName = function (indexToRemove) {
+
+        names = removeElement(names, indexToRemove)
+
+        render()
+
+    }
+
     const nameExists = function (name) {
         return names.includes(name)
+    }
+
+    const renderListItem = function (name, index) {
+
+        const li = document.createElement('li')
+        const button = document.createElement('button')
+        const text = document.createTextNode(' ' + name)
+
+        button.innerText = 'x'
+
+        button.addEventListener(
+            'click',
+            function(){
+                removeName(index)
+            }
+        )
+
+        li.appendChild(button)
+        li.appendChild(text)
+
+        return li
     }
 
     const renderList = function () {
@@ -27,9 +56,7 @@ const initListApp = (function () {
 
         for (let i = 0; i < names.length; i++) {
 
-            const li = document.createElement('li')
-
-            li.innerText = names[i]
+            const li = renderListItem(names[i], i)
 
             ul.appendChild(li)
         }
